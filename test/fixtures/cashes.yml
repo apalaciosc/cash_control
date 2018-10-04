@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  concept: MyString
+  coin: MyString
+  entry: 1.5
+  egress: 1.5
+
+two:
+  concept: MyString
+  coin: MyString
+  entry: 1.5
+  egress: 1.5
