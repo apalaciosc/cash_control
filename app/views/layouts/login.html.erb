@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            LOGIN Control efectivo
+        </title>
+        <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+        <meta charset="utf-8">
+            <meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" name="viewport">
+                <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+                <meta content="Gradient Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." name="description"/>
+                <meta content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" name="keywords"/>
+                <meta content="RTSystemPerú" name="author"/>
+                <%= favicon_link_tag 'favicon.ico' %>
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+                    <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+                </link>
+            </meta>
+        </meta>
+    </head>
+    <body themebg-pattern="theme1">
+        <!-- Pre-loader start -->
+        <div class="theme-loader">
+            <div class="loader-track">
+                <div class="preloader-wrapper">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spinner-layer spinner-red">
+                        <div class="circle-clipper left">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spinner-layer spinner-yellow">
+                        <div class="circle-clipper left">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spinner-layer spinner-green">
+                        <div class="circle-clipper left">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle">
+                            </div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pre-loader end -->
+        <section class="login-block">
+            <!-- Container-fluid starts -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <%= yield %>
+                    </div>
+                    <!-- end of col-sm-12 -->
+                </div>
+                <!-- end of row -->
+            </div>
+            <!-- end of container-fluid -->
+        </section>
+    </body>
+</html>

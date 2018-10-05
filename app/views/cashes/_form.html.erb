@@ -1,37 +1,127 @@
-<%= form_with(model: cash, local: true) do |form| %>
-  <% if cash.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(cash.errors.count, "error") %> prohibited this cash from being saved:</h2>
 
-      <ul>
-      <% cash.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :concept %>
-    <%= form.text_field :concept %>
-  </div>
+  <!-- [ breadcrumb ] start -->
+  
 
-  <div class="field">
-    <%= form.label :coin %>
-    <%= form.text_field :coin %>
-  </div>
 
-  <div class="field">
-    <%= form.label :entry %>
-    <%= form.text_field :entry %>
-  </div>
+  <div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+      <div class="page-wrapper">
+        <!-- Page-body start -->
+        <div class="page-body">
+          <!-- Input group card start -->
+          <div class="card">
+            <div class="card-block">
+              <!-- Basic group add-ons start -->
+              <div class="m-b-20">
 
-  <div class="field">
-    <%= form.label :egress %>
-    <%= form.text_field :egress %>
-  </div>
+                <%= form_with(model: cash, local: true, class: 'form-material') do |form| %>
+                <% if cash.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(cash.errors.count, "error") %> prohibited this cash from being saved:</h2>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+                  <ul>
+                    <% cash.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+                <% end %>
+
+                <div class="row">
+                  <label class="col-sm-4 col-lg-2 col-form-label">Concepto</label>
+                  <div class="col-sm-8 col-lg-10">
+
+                    <div class="material-group">
+                      <div class="material-addone">
+
+                      </div>
+                      <div class="form-group form-primary">
+                       <%= form.text_field :concept, class: 'form-control', required: '' %>
+
+                       <span class="form-bar" ></span>
+                       <label class="float-label" >Escribir Concepto</label>
+                     </div>
+
+                   </div>
+                   
+                 </div>
+               </div>
+               <div class="row">
+                <label class="col-sm-4 col-lg-2 col-form-label">Moneda</label>
+                <div class="col-sm-8 col-lg-10">
+
+                  <div class="material-group">
+                    <div class="material-addone">
+
+                    </div>
+                    <%= form.select(:coin, coin_cashe_for_select, { include_blank: 'Seleccionar moneda' }, {class: "form-control form-control-primary" }) %>
+                   
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-4 col-lg-2 col-form-label">Ingreso</label>
+                <div class="col-sm-8 col-lg-10">
+
+                  <div class="material-group">
+                    <div class="material-addone">
+
+                    </div>
+                    <div class="form-group form-primary">
+                     <%= form.text_field :entry, class: 'form-control' %>
+
+                     <span class="form-bar"></span>
+                     <label class="float-label">Escribir Ingreso</label>
+                   </div>
+                   <div class="material-addone">
+                    <span>$</span>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-sm-4 col-lg-2 col-form-label">Egreso</label>
+              <div class="col-sm-8 col-lg-10">
+
+                <div class="material-group">
+                  <div class="material-addone">
+
+                  </div>
+                  <div class="form-group form-primary">
+                    <%= form.text_field :egress, class: 'form-control' %>
+
+                    <span class="form-bar"></span>
+                    <label class="float-label">Escribir Egreso</label>
+                  </div>
+                  <div class="material-addone">
+                    <span>$</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="row m-t-30">
+              <div class="col-md-12">
+               <%= form.submit "Guardar", class:'btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20' %>
+
+
+             </div>
+           </div>
+
+
+           <% end %>
+
+
+         </div>
+
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+

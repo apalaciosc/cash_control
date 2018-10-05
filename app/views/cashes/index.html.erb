@@ -1,33 +1,73 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Efectivo</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Concepto</th>
-      <th>Moeda</th>
-      <th>Ingreso</th>
-      <th>Egreso</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @cashes.each do |cash| %>
-      <tr>
-        <td><%= cash.concept %></td>
-        <td><%= cash.coin %></td>
-        <td><%= cash.entry %></td>
-        <td><%= cash.egress %></td>
-        <td><%= link_to 'Show', cash %></td>
-        <td><%= link_to 'Edit', edit_cash_path(cash) %></td>
-        <td><%= link_to 'Destroy', cash, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="page-header">
+    <div class="page-block">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="page-header-title">
+            <h4 class="m-b-10">
+              Control de efectivo
+            </h4>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
 
-<br>
 
-<%= link_to 'New Cash', new_cash_path %>
+  <div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+      <div class="page-wrapper">
+        <!-- Page-body start -->
+        <div class="page-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <!-- HTML5 Export Buttons table start -->
+              <div class="card">
+                <div class="card-header table-card-header">
+                  
+                  <%= link_to 'Registrar', new_cash_path, class: 'btn btn-primary' %>
+                  
+                </div>
+                <div class="card-block">
+                  <div class="dt-responsive table-responsive">
+                    <table class="table table-striped table-bordered nowrap" id="basic-btn">
+                      <thead>
+                        <tr>
+                          <th>Concepto</th>
+                          <th>Moeda</th>
+                          <th>Ingreso</th>
+                          <th>Egreso</th>
+                          <th colspan="2"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @cashes.each do |cash| %>
+                        <tr>
+                          <td><%= cash.concept %></td>
+                          <td><%= cash.coin %></td>
+                          <td><%= cash.entry %></td>
+                          <td><%= cash.egress %></td>
+
+                        
+                          <td><%= link_to 'Editar', edit_cash_path(cash) %></td>
+                          <td><%= link_to 'Eliminar', cash, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
