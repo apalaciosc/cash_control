@@ -14,11 +14,15 @@ class CashesController < ApplicationController
 
   # GET /cashes/new
   def new
+
     @cash = Cash.new
   end
 
+
   # GET /cashes/1/edit
   def edit
+    @select = true
+    @edit = 1
   end
 
   # POST /cashes
@@ -28,7 +32,7 @@ class CashesController < ApplicationController
 
     respond_to do |format|
       if @cash.save
-        format.html { redirect_to @cash, notice: 'Cash was successfully created.' }
+        format.html {  redirect_to action: "index", notice: 'Cash was successfully created.' }
         format.json { render :show, status: :created, location: @cash }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class CashesController < ApplicationController
   def update
     respond_to do |format|
       if @cash.update(cash_params)
-        format.html { redirect_to @cash, notice: 'Cash was successfully updated.' }
+        format.html { redirect_to action: "index", notice: 'Cash was successfully updated.' }
         format.json { render :show, status: :ok, location: @cash }
       else
         format.html { render :edit }
@@ -69,6 +73,6 @@ class CashesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cash_params
-      params.require(:cash).permit(:concept, :coin, :entry, :egress)
+      params.require(:cash).permit(:concept, :coin, :entry, :egress, :register)
     end
 end

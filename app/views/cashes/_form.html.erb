@@ -41,13 +41,30 @@
                        <%= form.text_field :concept, class: 'form-control', required: '' %>
 
                        <span class="form-bar" ></span>
-                       <label class="float-label" >Escribir Concepto</label>
+                        <%= form.label :Escribir_Concepto, style: "#{'display:none' if @edit == 1}", class: 'float-label' %>
+                      
                      </div>
 
                    </div>
                    
                  </div>
                </div>
+              
+               <div class="row">
+                <label class="col-sm-4 col-lg-2 col-form-label">Seleccionar Registro</label>
+                <div class="col-sm-8 col-lg-10">
+
+                  <div class="material-group">
+                    <div class="material-addone">
+
+                    </div>
+                    <%= form.select(:register, register_cashe_for_select, { include_blank: 'Seleccionar registro' }, {class: "form-control form-control-primary combito", id: 'combito', :disabled => @select}) %>
+                   
+                   
+                  </div>
+                  
+                </div>
+              </div>
                <div class="row">
                 <label class="col-sm-4 col-lg-2 col-form-label">Moneda</label>
                 <div class="col-sm-8 col-lg-10">
@@ -56,55 +73,102 @@
                     <div class="material-addone">
 
                     </div>
-                    <%= form.select(:coin, coin_cashe_for_select, { include_blank: 'Seleccionar moneda' }, {class: "form-control form-control-primary" }) %>
+                    <%= form.select(:coin, coin_cashe_for_select, { include_blank: 'Seleccionar moneda' }, {class: "form-control form-control-primary", id: 'id_categoria' }) %>
                    
                   </div>
                   
                 </div>
               </div>
-              <div class="row">
-                <label class="col-sm-4 col-lg-2 col-form-label">Ingreso</label>
-                <div class="col-sm-8 col-lg-10">
+            
+               <div class="row contenido2" id="div_2">
+                <label class="col-sm-4 col-lg-2 col-form-label">Monto</label>
+                
+              <div class="col-sm-8 col-lg-5">
 
                   <div class="material-group">
                     <div class="material-addone">
 
                     </div>
+                                       <div class="material-addone">
+                    <span>S/.</span>
+                  </div>
                     <div class="form-group form-primary">
-                     <%= form.text_field :entry, class: 'form-control' %>
+                     <%= form.text_field :egress, class: 'form-control', id: 'soless', :disabled => true %>
 
                      <span class="form-bar"></span>
-                     <label class="float-label">Escribir Ingreso</label>
+                    <%= form.label :Escribir_Egreso_en_soles, style: "#{'display:none' if @edit == 1}", class: 'float-label'  %>
                    </div>
-                   <div class="material-addone">
-                    <span>$</span>
+
+                </div>
+                
+              </div>
+              <div class="col-sm-8 col-lg-5">
+
+                  <div class="material-group">
+                    <div class="material-addone">
+
+                    </div>
+                    <div class="material-addone">
+                    <span>$.</span>
                   </div>
+                    <div class="form-group form-primary">
+                     <%= form.text_field :egress, class: 'form-control', id: 'dolaress', :disabled => true   %>
+
+                     <span class="form-bar"></span>
+                    <%= form.label :Escribir_Egreso_en_dolares, style: "#{'display:none' if @edit == 1}", class: 'float-label'%>
+                   </div>
+                   
+                </div>
+                
+              </div>
+            </div>
+               
+              <div class="row contenido" id="div_1" >
+                <label class="col-sm-4 col-lg-2 col-form-label">Monto</label>
+                
+              <div class="col-sm-8 col-lg-5">
+
+                  <div class="material-group">
+                    <div class="material-addone">
+
+                    </div>
+                                       <div class="material-addone">
+                    <span>S/.</span>
+                  </div>
+                    <div class="form-group form-primary">
+                     <%= form.text_field :entry, class: 'form-control', id: 'soles', :disabled => true %>
+
+                     <span class="form-bar"></span>
+                    <%= form.label :Escribir_Ingreso_en_soles, style: "#{'display:none' if @edit == 1}", class: 'float-label' %>
+                   </div>
+
+                </div>
+                
+              </div>
+              <div class="col-sm-8 col-lg-5">
+
+                  <div class="material-group">
+                    <div class="material-addone">
+
+                    </div>
+                    <div class="material-addone">
+                    <span>$.</span>
+                  </div>
+                    <div class="form-group form-primary">
+
+                     <%= form.text_field :entry, class: 'form-control', id: 'dolares', :disabled => true %>
+
+                     <span class="form-bar"></span>
+                    <%= form.label :Escribir_Ingreso_en_dolares, style: "#{'display:none' if @edit == 1}", class: 'float-label' %>
+                   </div>
+                   
                 </div>
                 
               </div>
             </div>
 
-            <div class="row">
-              <label class="col-sm-4 col-lg-2 col-form-label">Egreso</label>
-              <div class="col-sm-8 col-lg-10">
 
-                <div class="material-group">
-                  <div class="material-addone">
-
-                  </div>
-                  <div class="form-group form-primary">
-                    <%= form.text_field :egress, class: 'form-control' %>
-
-                    <span class="form-bar"></span>
-                    <label class="float-label">Escribir Egreso</label>
-                  </div>
-                  <div class="material-addone">
-                    <span>$</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
+            
             <div class="row m-t-30">
               <div class="col-md-12">
                <%= form.submit "Guardar", class:'btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20' %>
@@ -125,3 +189,6 @@
  </div>
 </div>
 
+
+   
+    
