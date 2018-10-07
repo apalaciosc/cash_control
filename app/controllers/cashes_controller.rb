@@ -15,19 +15,25 @@ class CashesController < ApplicationController
       @t_dolar = @entry - @egress   
       @t_sol = @entry_s - @egress_s 
     else
-      @egress  = Cash.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
-      @entry  = Cash.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
-      @egress_s  = Cash.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
-      @entry_s  = Cash.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+    if  request.format == "pdf"
+        @cashes = Cash.all
+         @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
+      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
       @t_dolar = @entry - @egress   
       @t_sol = @entry_s - @egress_s 
-      @cashes = Cash.paginate(page:params[:page],per_page:7).all
+        else
+        @cashes = Cash.paginate(page:params[:page],per_page:7).all
+
       
-      
+        end
+
+   
       end
 
      respond_to do |format|
-      
+
       format.html
       format.json
       format.pdf {render template: 'cashes/report', pdf: 'report', layout: 'pdf.html'}
