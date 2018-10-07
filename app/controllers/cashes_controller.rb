@@ -4,7 +4,34 @@ class CashesController < ApplicationController
   # GET /cashes
   # GET /cashes.json
   def index
-    @cashes = Cash.all
+  
+     @search = params[:search]
+    if @search
+       @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%")
+  @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
+      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+      @t_dolar = @entry - @egress   
+      @t_sol = @entry_s - @egress_s 
+    else
+      @egress  = Cash.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+      @entry  = Cash.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
+      @egress_s  = Cash.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+      @entry_s  = Cash.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+      @t_dolar = @entry - @egress   
+      @t_sol = @entry_s - @egress_s 
+      @cashes = Cash.paginate(page:params[:page],per_page:7).all
+      
+      
+      end
+
+     respond_to do |format|
+      
+      format.html
+      format.json
+      format.pdf {render template: 'cashes/report', pdf: 'report', layout: 'pdf.html'}
+    end
   end
 
   # GET /cashes/1
@@ -35,8 +62,7 @@ class CashesController < ApplicationController
         format.html {  redirect_to action: "index", notice: 'Cash was successfully created.' }
         format.json { render :show, status: :created, location: @cash }
       else
-        format.html { render :new }
-        format.json { render json: @cash.errors, status: :unprocessable_entity }
+      render js: 'swal("Alerta", "Verificar todos los datos.", "warning");'
       end
     end
   end

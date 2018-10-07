@@ -1,0 +1,60 @@
+<div align="center">
+<table class=" tg table " >
+<colgroup>
+<col style="width: 200.88889px">
+<col style="width: 223.88889px">
+<col style="width: 215.88889px">
+<col style="width: 186.88889px">
+</colgroup>
+  <tr>
+    <th ></th>
+    <th class="tg-hgcj">Ingresos total</th>
+    <th class="tg-hgcj">Egresos total</th>
+    <th class="tg-hgcj">Total</th>
+  </tr>
+  <tr>
+    <td class="tg-hgcj">Dolares</td>
+    <td class="tg-s268" ><%= @entry %></td>
+    <td class="tg-s268"><%= @egress %></td>
+    <td class="tg-s268"><%= @t_dolar %></td>
+  </tr>
+  <tr>
+    <td class="tg-hgcj">Soles</td>
+    <td class="tg-s268"><%= @entry_s %></td>
+    <td class="tg-s268"> <%= @egress_s %></td>
+    <td class="tg-s268"><%= @t_sol %></td>
+  </tr>
+</table>
+</div><br/>
+
+<table class="tg" style="undefined;table-layout: fixed; width: 1058px">
+  <colgroup>
+    <col style="width: 390.88889px">
+    <col style="width: 189.88889px">
+    <col style="width: 139.88889px">
+    <col style="width: 151.88889px">
+    <col style="width: 185.88889px">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="tg-hgcj">Concepto</th>
+      <th class="tg-hgcj">Fecha de registro</th>
+      <th class="tg-amwm">Moneda</th>
+      <th class="tg-amwm">Ingreso</th>
+      <th class="tg-amwm">Egreso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cashes.each do |cash| %>
+    <tr>
+      <td class="tg-s268"><%= cash.concept %></td>
+      <td class="tg-s268"height=""><%= cash.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+      <td class="tg-s268"><%= cash.coin %></td>
+      <td class="tg-s268"><%= cash.entry %></td>
+      <td class="tg-s268"><%= cash.egress %></td>
+
+    </tr>
+    <% end %>
+  </tbody>
+
+</table>

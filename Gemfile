@@ -11,6 +11,10 @@ gem "font-awesome-rails"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-slimscroll-rails'
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
+gem 'will_paginate-bootstrap4'
+
 #
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
