@@ -30,7 +30,7 @@
               <div class="card-header table-card-header">
                <nav class="navbar navbar-expand-lg navbar-dark bg-basic" >
 
-                <form class="form-inline my-2 my-lg-0" action="/cashes" method="get">
+                <form class="form-inline my-2 my-lg-0" action="/cashes/egress" method="get">
                  <div class="input-group input-group-sm " style="width: 220px;padding-top: 15px" >
                   <input type="text" name="search" class="form-control" style="height: 44px; " placeholder="Buscar" <%= @search %> >
                   <div class="input-group-btn">
@@ -50,7 +50,7 @@
                 <form class="form-inline my-2 my-lg-0" action="/cahse" method="get">
                   <%= link_to '<button type="button" style="float:left" class="btn waves-effect waves-light hor-grd btn-grd-primary ">Registrar</button>'.html_safe, new_cash_path%>
                   <div class="" style=" float: right" >
-                    <%= link_to cashes_path(format: :pdf, search: @search), target: '_blank' do %>
+                    <%= link_to cashes_egress_path(format: :pdf, search: @search), target: '_blank' do %>
                     <%= image_tag ('pdf.ico'), height: '50', width: '50', style: 'margin-left: 6px' %>
                     <% end %>
 
@@ -77,21 +77,18 @@
 </colgroup>
   <tr>
     <th ></th>
-    <th class="tg-hgcj">Ingresos total</th>
-    <th class="tg-hgcj">Egresos total</th>
-    <th class="tg-hgcj">Total</th>
+    <th class="tg-hgcj">Egreso total</th>
+    
   </tr>
   <tr>
     <td class="tg-hgcj">Dolares</td>
-    <td class="tg-s268" ><%= @entry %></td>
-    <td class="tg-s268"><%= @egress %></td>
-    <td class="tg-s268"><%= @t_dolar %></td>
+    <td class="tg-s268" ><%= @egress %></td>
+    
   </tr>
   <tr>
     <td class="tg-hgcj">Soles</td>
-    <td class="tg-s268"><%= @entry_s %></td>
-    <td class="tg-s268"> <%= @egress_s %></td>
-    <td class="tg-s268"><%= @t_sol %></td>
+    <td class="tg-s268"><%= @egress_s %></td>
+   
   </tr>
 </table>
               <table class="table table-striped table-bordered nowrap" id="basic-btn">
@@ -100,8 +97,8 @@
                     <th>Concepto</th>
                     <th>Fecha Registro</th>
                     <th>Moeda</th>
-                    <th>Ingreso</th>
-                    <th>Egreso</th>
+                    <th>Egresos</th>
+                  
 
                     <th colspan="2"></th>
                   </tr>
@@ -112,8 +109,8 @@
                     <td><%= cash.concept %></td>
                     <td><%= cash.created_at.strftime("%d/%m/%Y %H:%M") %></td>
                     <td><%= cash.coin %></td>
-                    <td><%= cash.entry %></td>
                     <td><%= cash.egress %></td>
+                   
 
 
 

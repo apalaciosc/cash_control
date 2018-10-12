@@ -3,11 +3,100 @@ class CashesController < ApplicationController
 
   # GET /cashes
   # GET /cashes.json
+
+def entry
+  @en= 2
+   @search = params[:search]
+    if @search
+       @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%").where("register = '1'")
+
+      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
+     
+      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+     
+    elsif  request.format == "pdf"
+        @cashes = Cash.where("register = '1'", "%#{@search}%").all
+        
+      
+      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
+     
+      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+
+          
+        else
+            @cashes = Cash.where("register = '1'", "%#{@search}%").all
+       
+
+      
+      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
+     
+      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+       @cashes = Cash.paginate(page:params[:page],per_page:7).where("register = '1'").all
+      @cashes = Enterprise.all if request.format == "pdf"
+
+
+   
+      end
+
+     respond_to do |format|
+
+      format.html
+      format.json
+      format.pdf {render template: 'cashes/report', pdf: 'report', layout: 'pdf.html'}
+    end
+  
+end
+
+def egress
+  @eg= 2
+   @search = params[:search]
+    if @search
+       @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%").
+       where("register = '2'")
+
+      @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+     
+      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+     
+    else
+    if  request.format == "pdf"
+        @cashes = Cash.where("register = '2'").all
+        
+      
+      @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+     
+      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+        else
+            @cashes = Cash.where("register = '2'").all
+       
+
+      
+      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+     
+      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+       @cashes = Cash.paginate(page:params[:page],per_page:7).where("register = '2'").all
+        end
+
+   
+      end
+
+
+     respond_to do |format|
+
+      format.html
+      format.json
+      format.pdf {render template: 'cashes/report', pdf: 'report', layout: 'pdf.html'}
+    end
+  
+end
+
   def index
   
      @search = params[:search]
+     @cashes = Cash.new
     if @search
        @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%")
+       @cashes = Cash.where("concept||coin ILIKE ?", "%#{@search}%") if request.format == "pdf"
   @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
       @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
       @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
@@ -16,6 +105,7 @@ class CashesController < ApplicationController
       @t_sol = @entry_s - @egress_s 
     else
     if  request.format == "pdf"
+
         @cashes = Cash.all
          @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
       @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
@@ -24,7 +114,15 @@ class CashesController < ApplicationController
       @t_dolar = @entry - @egress   
       @t_sol = @entry_s - @egress_s 
         else
+           @cashes = Cash.all
+         @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
+      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+      @t_dolar = @entry - @egress   
+      @t_sol = @entry_s - @egress_s 
         @cashes = Cash.paginate(page:params[:page],per_page:7).all
+        
 
       
         end
