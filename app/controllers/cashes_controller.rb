@@ -7,6 +7,7 @@ class CashesController < ApplicationController
 def entry
   @en= 2
    @search = params[:search]
+    @cashes = Cash.new
     if @search
        @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%").where("register = '1'")
 
@@ -49,37 +50,36 @@ end
 
 def egress
   @eg= 2
-   @search = params[:search]
+    @search = params[:search]
+     @cashes = Cash.new
     if @search
-       @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%").
-       where("register = '2'")
+       @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%").where("register = '2'")
 
       @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
      
       @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
      
-    else
-    if  request.format == "pdf"
+    elsif  request.format == "pdf"
         @cashes = Cash.where("register = '2'").all
         
       
       @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
      
       @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+
+          
         else
             @cashes = Cash.where("register = '2'").all
        
 
       
-      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
+      @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
      
-      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
        @cashes = Cash.paginate(page:params[:page],per_page:7).where("register = '2'").all
-        end
+      @cashes = Enterprise.all if request.format == "pdf"
 
-   
       end
-
 
      respond_to do |format|
 
