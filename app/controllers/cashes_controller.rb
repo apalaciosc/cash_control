@@ -89,22 +89,39 @@ def egress
     end
   
 end
-
+def search
+  index
+  render :index  
+end
   def index
-  
+ 
+@inicio = params[:inicio]
+@fin = params[:fin]
+ 
      @search = params[:search]
      @cashes = Cash.new
-    if @search
+    if @search   
        @cashes = Cash.paginate(page:params[:page],per_page:7).where("concept||coin ILIKE ?", "%#{@search}%")
+      
        @cashes = Cash.where("concept||coin ILIKE ?", "%#{@search}%") if request.format == "pdf"
-  @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
-      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
-      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
-      @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
+  @egress  = @cashes.where("coin = 'DOLARES'").sum(:egress)
+      @entry  = @cashes.where("coin = 'DOLARES'").sum(:entry)
+      @egress_s  = @cashes.where("coin = 'SOLES'").sum(:egress)
+      @entry_s  = @cashes.where("coin = 'SOLES'").sum(:entry)
       @t_dolar = @entry - @egress   
       @t_sol = @entry_s - @egress_s 
-    else
-    if  request.format == "pdf"
+
+    elsif @inicio and @fin   
+      @cashes = Cash.paginate(page:params[:page],per_page:7).where(:created_at => @inicio.to_date..@fin.to_date)
+@cashes = Cash.where(:created_at => @inicio.to_date..@fin.to_date) if request.format == "pdf"
+@egress  = @cashes.where("coin = 'DOLARES'").sum(:egress)
+      @entry  = @cashes.where("coin = 'DOLARES'").sum(:entry)
+      @egress_s  = @cashes.where("coin = 'SOLES'").sum(:egress)
+      @entry_s  = @cashes.where("coin = 'SOLES'").sum(:entry)
+      @t_dolar = @entry - @egress   
+      @t_sol = @entry_s - @egress_s 
+    
+ elsif  request.format == "pdf"
 
         @cashes = Cash.all
          @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
@@ -112,23 +129,24 @@ end
       @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
       @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
       @t_dolar = @entry - @egress   
-      @t_sol = @entry_s - @egress_s 
+      @t_sol = @entry_s - @egress_s
         else
            @cashes = Cash.all
-         @egress  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:egress)
-      @entry  = @cashes.where("coin = 'DOLARES'", "%#{@search}%").sum(:entry)
-      @egress_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:egress)
+         @egress  = @cashes.where("coin = 'DOLARES'").sum(:egress)
+      @entry  = @cashes.where("coin = 'DOLARES'").sum(:entry)
+      @egress_s  = @cashes.where("coin = 'SOLES'").sum(:egress)
       @entry_s  = @cashes.where("coin = 'SOLES'", "%#{@search}%").sum(:entry)
       @t_dolar = @entry - @egress   
       @t_sol = @entry_s - @egress_s 
         @cashes = Cash.paginate(page:params[:page],per_page:7).all
-        
+       
 
-      
-        end
-
-   
       end
+
+ 
+
+
+
 
      respond_to do |format|
 
@@ -203,6 +221,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cash_params
-      params.require(:cash).permit(:concept, :coin, :entry, :egress, :register)
+      params.require(:cash).permit(:concept, :coin, :entry, :egress, :register, :created_at)
     end
 end

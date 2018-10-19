@@ -17,5 +17,5 @@
 //= require jquery-ui
 //= require jquery.slimscroll.min
 //= require popper
-//= require bootstrap-sprockets
+//= require bootstrap
 //= require_tree .

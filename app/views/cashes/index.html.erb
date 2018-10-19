@@ -31,113 +31,154 @@
                <nav class="navbar navbar-expand-lg navbar-dark bg-basic" >
 
                 <form class="form-inline my-2 my-lg-0" action="/cashes" method="get">
-                 <div class="input-group input-group-sm " style="width: 220px;padding-top: 15px" >
+                 <div class="input-group input-group-sm " style="width: 220px;padding-top: 15px; margin-right: 80px" >
                   <input type="text" name="search" class="form-control" style="height: 44px; " placeholder="Buscar" <%= @search %> >
+
+
                   <div class="input-group-btn">
+
                     <button type="submit" class="btn waves-effect waves-light hor-grd btn-grd-primary"><i class="fa fa-search"></i></button>
                   </div>
+
                 </div>
               </form>
-              <button class="navbar-toggler navbar-toggler-right collapsed bg-primary" style="height: 44px; " type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-              </button>
 
-              <div class="navbar-collapse collapse" id="navb">
-                <ul class="navbar-nav mr-auto">
-
-                </ul>
-
-                <form class="form-inline my-2 my-lg-0" action="/cahse" method="get">
-                  <%= link_to '<button type="button" style="float:left" class="btn waves-effect waves-light hor-grd btn-grd-primary ">Registrar</button>'.html_safe, new_cash_path%>
-                  <div class="" style=" float: right" >
-                    <%= link_to cashes_path(format: :pdf, search: @search), target: '_blank' do %>
-                    <%= image_tag ('pdf.ico'), height: '50', width: '50', style: 'margin-left: 6px' %>
-                    <% end %>
+              <form class="form-inline my-2 my-lg-0" action="/cashes" method="get">
+                <div class="input-group-btn " >
+                  <input class="form-control" name="inicio" id="inicio" data-date-format="dd/mm/yyyy" style="width:140px;height: 44px " placeholder="Feca de Inicio" <%= @inicio %> >
 
 
+
+                </div>
+                <div class="input-group-btn "><label>&nbsp; hasta &nbsp;</label></div>
+                
+                <div class="input-group-btn ">
+                 <input class="form-control" name="fin" id="fin" data-date-format="dd/mm/yyyy" style="width:140px;height: 44px"  placeholder="Fecha final" <%= @fin %> >
+                  
+
+                 <script>
+                  $(function () {
+
+  $('#inicio').datepicker({
+    dateFormat: 'yy-mm-dd'
+
+  });
+  $('#fin').datepicker({
+dateFormat: 'yy-mm-dd'
+
+  });
+
+});
+
+                 
+                </script>
+              </div>
+              <div class="input-group-btn">
+
+                    <button  type="submit" class="btn waves-effect waves-light hor-grd btn-grd-primary"><i class="fa fa-search"></i></button>
                   </div>
 
+            </form>
+            <button class="navbar-toggler navbar-toggler-right collapsed bg-primary" style="height: 44px; " type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="navbar-collapse collapse" id="navb">
+              <ul class="navbar-nav mr-auto">
 
-                </form>
-              </div>
-            </nav>
+              </ul>
 
-
-          </div>
-
-          <div class="card-block">
-            <div class="dt-responsive table-responsive">
-              <table class=" tg table " >
-<colgroup>
-<col style="width: 200.88889px">
-<col style="width: 223.88889px">
-<col style="width: 215.88889px">
-<col style="width: 186.88889px">
-</colgroup>
-  <tr>
-    <th ></th>
-    <th class="tg-hgcj">Ingresos total</th>
-    <th class="tg-hgcj">Egresos total</th>
-    <th class="tg-hgcj">Total</th>
-  </tr>
-  <tr>
-    <td class="tg-hgcj">Dolares</td>
-    <td class="tg-s268" ><%= @entry %></td>
-    <td class="tg-s268"><%= @egress %></td>
-    <td class="tg-s268"><%= @t_dolar %></td>
-  </tr>
-  <tr>
-    <td class="tg-hgcj">Soles</td>
-    <td class="tg-s268"><%= @entry_s %></td>
-    <td class="tg-s268"> <%= @egress_s %></td>
-    <td class="tg-s268"><%= @t_sol %></td>
-  </tr>
-</table>
-              <table class="table table-striped table-bordered nowrap" id="basic-btn">
-                <thead>
-                  <tr>
-                    <th>Concepto</th>
-                    <th>Fecha Registro</th>
-                    <th>Moeda</th>
-                    <th>Ingreso</th>
-                    <th>Egreso</th>
-
-                    <th colspan="2"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @cashes.each do |cash| %>
-                  <tr>
-                    <td><%= cash.concept %></td>
-                    <td><%= cash.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-                    <td><%= cash.coin %></td>
-                    <td><%= cash.entry %></td>
-                    <td><%= cash.egress %></td>
-
-
-
-                    <td><%= link_to '<button type="button" class="btn waves-effect waves-dark btn-primary btn-outline-primary"><i class="fa fa-edit"></i></button>'.html_safe, edit_cash_path(cash) %></td>
-
-                    <td>
-                      <%= link_to '<button type="button" class="btn waves-effect waves-dark btn-primary btn-outline-primary"><i class="fa fa-trash-o"></i></button>'.html_safe, cash, remote: 'true', method: :delete, data: { confirm: 'Are you sure?'} %>
-
-                    </td>
-                  </tr>
+              <form class="form-inline my-2 my-lg-0" action="/cahse" method="get">
+                <%= link_to '<button type="button" style="float:left" class="btn waves-effect waves-light hor-grd btn-grd-primary ">Registrar</button>'.html_safe, new_cash_path%>
+                <div class="" style=" float: right" >
+                  <%= link_to cashes_path(format: :pdf, search: @search, inicio: @inicio, fin: @fin), target: '_blank' do %>
+                  <%= image_tag ('pdf.ico'), height: '50', width: '50', style: 'margin-left: 6px' %>
                   <% end %>
-                </tbody>
 
-              </table>
 
+                </div>
+
+
+
+              </form>
             </div>
+          </nav>
 
 
-            <%= will_paginate @cashes, previous_label: "Atras", next_label: "Siguiente", innner_window:1, outer_window: 0,renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
+
+        <div class="card-block">
+          <div class="dt-responsive table-responsive">
+            <table class=" tg table " >
+              <colgroup>
+                <col style="width: 200.88889px">
+                <col style="width: 223.88889px">
+                <col style="width: 215.88889px">
+                <col style="width: 186.88889px">
+              </colgroup>
+              <tr>
+                <th ></th>
+                <th class="tg-hgcj">Ingresos total</th>
+                <th class="tg-hgcj">Egresos total</th>
+                <th class="tg-hgcj">Total</th>
+              </tr>
+              <tr>
+                <td class="tg-hgcj">Dolares</td>
+                <td class="tg-s268" ><%= @entry %></td>
+                <td class="tg-s268"><%= @egress %></td>
+                <td class="tg-s268"><%= @t_dolar %></td>
+              </tr>
+              <tr>
+                <td class="tg-hgcj">Soles</td>
+                <td class="tg-s268"><%= @entry_s %></td>
+                <td class="tg-s268"> <%= @egress_s %></td>
+                <td class="tg-s268"><%= @t_sol %></td>
+              </tr>
+            </table>
+            <table class="table table-striped table-bordered nowrap" id="basic-btn">
+              <thead>
+                <tr>
+                  <th>Concepto</th>
+                  <th>Fecha Registro</th>
+                  <th>Moeda</th>
+                  <th>Ingreso</th>
+                  <th>Egreso</th>
+
+                  <th colspan="2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @cashes.each do |cash| %>
+                <tr>
+                  <td><%= cash.concept %></td>
+                  <td><%= cash.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+                  <td><%= cash.coin %></td>
+                  <td><%= cash.entry %></td>
+                  <td><%= cash.egress %></td>
+
+
+
+                  <td><%= link_to '<button type="button" class="btn waves-effect waves-dark btn-primary btn-outline-primary"><i class="fa fa-edit"></i></button>'.html_safe, edit_cash_path(cash) %></td>
+
+                  <td>
+                    <%= link_to '<button type="button" class="btn waves-effect waves-dark btn-primary btn-outline-primary"><i class="fa fa-trash-o"></i></button>'.html_safe, cash, remote: 'true', method: :delete, data: { confirm: 'Are you sure?'} %>
+
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+
+            </table>
+
           </div>
+
+
+          <%= will_paginate @cashes, previous_label: "Atras", next_label: "Siguiente", innner_window:1, outer_window: 0,renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 </div>
 </div>
